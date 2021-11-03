@@ -1,0 +1,12 @@
+h1, .add-team {
+    text-align: center;
+}
+h2 {
+    margin-bottom: 5px;
+}
+h3 {
+    margin: 5px;
+}
+.player-name-input {
+    margin-right: 10px;
+}

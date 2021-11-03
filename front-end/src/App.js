@@ -14,6 +14,7 @@ const App = () => {
         <div>
             <h1>STREETBALL</h1>
             <div className='add-team'>
+                <h2>Add Team</h2>
                 <form>
                     <div>
                         <label htmlFor='name'>Name: </label>
@@ -28,21 +29,21 @@ const App = () => {
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-one'>Player Name: </label>
-                        <input type='text' id='player-name-one'/>
+                        <input type='text' id='player-name-one' className='player-name-input'/>
                         <label htmlFor='player-one-skills'>Skills: </label>
-                        <input type='text' id='player-one-skills' placeholder='(separate with commas)'/>
+                        <input type='text' id='player-one-skills' placeholder='(separate with semi-colons)'/>
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-two'>Player Name: </label>
-                        <input type='text' id='player-name-two'/>
+                        <input type='text' id='player-name-two' className='player-name-input'/>
                         <label htmlFor='player-two-skills'>Skills: </label>
-                        <input type='text' id='player-two-skills' placeholder='(separate with commas)'/>
+                        <input type='text' id='player-two-skills' placeholder='(separate with semi-colons)'/>
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-three'>Player Name: </label>
-                        <input type='text' id='player-name-three'/>
+                        <input type='text' id='player-name-three' className='player-name-input'/>
                         <label htmlFor='player-three-skills'>Skills: </label>
-                        <input type='text' id='player-three-skills' placeholder='(separate with commas)'/>
+                        <input type='text' id='player-three-skills' placeholder='(separate with semi-colons)'/>
                     </div>
                 </form>
             </div>
