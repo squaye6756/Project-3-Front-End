@@ -84,46 +84,115 @@ const App = () => {
     const [teams, setTeams] = useState(teamsList);
     const [name, setName] = useState('');
     const [logo, setLogo] = useState('');
-    const [players, setPlayers] = useState([]);
-    const [wins, setWins] = useState('');
-    const [losses, setLosses] = useState('');
-    const [skills, setSkills] = useState([]);
+    const [playerNames, setPlayerNames] = useState([]);
+    // const [wins, setWins] = useState('');
+    // const [losses, setLosses] = useState('');
+    const [teamSkills, setTeamSkills] = useState([]);
+
+    const clearInputs = () => {
+        document.getElementById('player-name-one').value = '';
+        document.getElementById('player-one-skills').value = '';
+        document.getElementById('player-name-two').value = '';
+        document.getElementById('player-two-skills').value = '';
+        document.getElementById('player-name-three').value = '';
+        document.getElementById('player-three-skills').value = '';
+        document.getElementById('name').value = '';
+        document.getElementById('logo').value = '';
+    }
+
+    const addTeam = (event) => {
+        event.preventDefault();
+        const newTeam = {
+            name: name,
+            logo: logo,
+            wins: 0,
+            losses: 0,
+            location: 'Milky Way',
+            players: [
+                {
+                    name: playerNames[0],
+                    skills: teamSkills[0]
+                },
+                {
+                    name: playerNames[1],
+                    skills: teamSkills[1]
+                },
+                {
+                    name: playerNames[2],
+                    skills: teamSkills[2]
+                }
+            ]
+        }
+        teamsList.push(newTeam);
+        console.log(teamsList);
+        setTeams(teamsList);
+        clearInputs();
+    }
+
+    const changePlayers = () => {
+        const playerOneName = document.getElementById('player-name-one').value;
+        const playerTwoName = document.getElementById('player-name-two').value;
+        const playerThreeName = document.getElementById('player-name-three').value;
+        console.log([playerOneName, playerTwoName, playerThreeName]);
+        setPlayerNames([playerOneName, playerTwoName, playerThreeName]);
+    }
+
+    const changeSkills = () => {
+        const playerOneSkills = document.getElementById('player-one-skills').value;
+        const playerTwoSkills = document.getElementById('player-two-skills').value;
+        const playerThreeSkills = document.getElementById('player-three-skills').value;
+        // console.log([playerOneSkills, playerTwoSkills, playerThreeSkills]);
+        setTeamSkills([playerOneSkills, playerTwoSkills, playerThreeSkills]);
+    }
+
+    const changeName = (event) => {
+        setName(event.target.value)
+    }
+
+    const changeLogo = (event) => {
+        setLogo(event.target.value)
+    }
+
+    useEffect(() => {
+        setTeams(teamsList);
+    }, [teams])
 
     return (
         <div>
             <h1>STREETBALL</h1>
             <div className='add-team'>
                 <h2>Add Team</h2>
-                <form>
+                <form onSubmit={addTeam}>
                     <div>
                         <label htmlFor='name'>Name: </label>
-                        <input type='text' id='name'/>
+                        <input type='text' id='name' onChange={changeName}/>
                     </div>
                     <div>
                         <label htmlFor='logo'>Logo: </label>
-                        <input type='text' id='logo' placeholder='image URL'/>
+                        <input type='text' id='logo' placeholder='image URL' onChange={changeLogo}/>
                     </div>
                     <div>
                         <h3>Starting 3:</h3>
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-one'>Player Name: </label>
-                        <input type='text' id='player-name-one' className='player-name-input'/>
+                        <input type='text' id='player-name-one' className='player-name-input' onChange={changePlayers}/>
                         <label htmlFor='player-one-skills'>Skills: </label>
-                        <input type='text' id='player-one-skills'/>
+                        <input type='text' id='player-one-skills' onChange={changeSkills}/>
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-two'>Player Name: </label>
-                        <input type='text' id='player-name-two' className='player-name-input'/>
+                        <input type='text' id='player-name-two' className='player-name-input' onChange={changePlayers}/>
                         <label htmlFor='player-two-skills'>Skills: </label>
-                        <input type='text' id='player-two-skills'/>
+                        <input type='text' id='player-two-skills' onChange={changeSkills}/>
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-three'>Player Name: </label>
-                        <input type='text' id='player-name-three' className='player-name-input'/>
+                        <input type='text' id='player-name-three' className='player-name-input' onChange={changePlayers}/>
                         <label htmlFor='player-three-skills'>Skills: </label>
-                        <input type='text' id='player-three-skills'/>
+                        <input type='text' id='player-three-skills' onChange={changeSkills}/>
                     </div>
+                    <input type='submit' value='Add Team'/>
                 </form>
             </div>
             <Teams teams={teams}/>

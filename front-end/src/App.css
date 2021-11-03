@@ -20,6 +20,7 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
 }
 /* .team-info {
     display: flex;
