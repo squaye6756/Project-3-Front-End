@@ -15,8 +15,10 @@ const Teams = (props) => {
                     <>
                         <div className='team'>
                             <div className='team-info'>
-                                <h3>{team.name}</h3>
-                                <h3>{team.wins}-{team.losses}</h3>
+                                <div className='team-header'>
+                                    <h3>{team.name}</h3>
+                                    <h3>{team.wins}-{team.losses}</h3>
+                                </div>
                                 <img src={team.logo} alt={team.name} className='team-logo'/>
                                 <h5><u>STARTING 3</u></h5>
                                 <ul>
@@ -36,6 +38,38 @@ const Teams = (props) => {
                                 </ul>
                             </div>
                             <div className='edit-team'>
+                                <h2>Edit Team</h2>
+                                <form>
+                                    <div>
+                                        <label htmlFor='edit-name'>Name: </label>
+                                        <input type='text' id='edit-name'/>
+                                    </div>
+                                    <div>
+                                        <label htmlFor='edit-logo'>Logo: </label>
+                                        <input type='text' id='edit-logo' placeholder='image URL'/>
+                                    </div>
+                                    <div>
+                                        <h3>Starting 3:</h3>
+                                    </div>
+                                    <div className='edit-player-input'>
+                                        <label htmlFor='edit-player-name-one'>Player Name: </label>
+                                        <input type='text' id='edit-player-name-one' className='edit-player-name-input'/>
+                                        <label htmlFor='edit-player-one-skills'>Skills: </label>
+                                        <input type='text' id='edit-player-one-skills'/>
+                                    </div>
+                                    <div className='edit-player-input'>
+                                        <label htmlFor='edit-player-name-two'>Player Name: </label>
+                                        <input type='text' id='edit-player-name-two' className='edit-player-name-input'/>
+                                        <label htmlFor='edit-player-two-skills'>Skills: </label>
+                                        <input type='text' id='edit-player-two-skills'/>
+                                    </div>
+                                    <div className='edit-player-input'>
+                                        <label htmlFor='edit-player-name-three'>Player Name: </label>
+                                        <input type='text' id='edit-player-name-three' className='edit-player-name-input'/>
+                                        <label htmlFor='edit-player-three-skills'>Skills: </label>
+                                        <input type='text' id='edit-player-three-skills'/>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </>
