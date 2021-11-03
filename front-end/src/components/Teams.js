@@ -4,7 +4,7 @@ const Teams = (props) => {
 
     const toggleSkill = (id) => {
         const skills = document.getElementById(id);
-        skills.style.display = skills.style.display === 'block' ? 'none' : 'block';
+        skills.style.display = skills.style.display === 'none' ? 'block' : 'none';
     }
 
     return (
@@ -21,7 +21,7 @@ const Teams = (props) => {
                                 <h5><u>STARTING 3</u></h5>
                                 <ul>
                                     {team.players.map((teammate) => {
-                                        let playerId = teammate._id;
+                                        let playerId = teammate._id.toString();
                                         return (
                                             <>
                                                 <li onClick={()=>toggleSkill(playerId)}>
