@@ -7,6 +7,8 @@ const Teams = (props) => {
         skills.style.display = skills.style.display === 'none' ? 'block' : 'none';
     }
 
+    let fakeId = 10;
+
     return (
         <div className='teams-container'>
         {
@@ -23,7 +25,9 @@ const Teams = (props) => {
                                 <h5><u>STARTING 3</u></h5>
                                 <ul>
                                     {team.players.map((teammate) => {
-                                        let playerId = teammate._id.toString();
+                                        let playerId = teammate._id || fakeId;
+                                        fakeId++;
+                                        playerId = playerId.toString();
                                         return (
                                             <>
                                                 <li onClick={()=>toggleSkill(playerId)}>
@@ -69,6 +73,7 @@ const Teams = (props) => {
                                         <label htmlFor='edit-player-three-skills'>Skills: </label>
                                         <input type='text' id='edit-player-three-skills'/>
                                     </div>
+                                    <input type='submit' value='Submit Team Edits'/>
                                 </form>
                             </div>
                         </div>
