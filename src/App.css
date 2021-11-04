@@ -26,6 +26,6 @@ h3 {
     height: 100px;
     width: 100px;
 }
-/* .team-info {
-    display: flex;
-} */
+.hideToggle {
+    display: none;
+}

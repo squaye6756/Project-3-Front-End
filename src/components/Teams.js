@@ -14,7 +14,7 @@ const Teams = (props) => {
 
     const toggleSkill = (id) => {
         const skills = document.getElementById(id);
-        skills.style.display = skills.style.display === 'none' ? 'block' : 'none';
+        skills.style.display = skills.style.display === 'block' ? 'none' : 'block';
     }
 
     const changePlayersEdit = (team) => {
@@ -128,7 +128,7 @@ const Teams = (props) => {
                                             <>
                                                 <li onClick={()=>toggleSkill(playerId)}>
                                                     {teammate.name}
-                                                    <div id={playerId}>
+                                                    <div id={playerId} className='hideToggle'>
                                                         <p>Skills: {teammate.skills}</p>
                                                     </div>
                                                 </li>
