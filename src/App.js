@@ -34,7 +34,7 @@ const App = () => {
     const addTeam = (event) => {
         event.preventDefault();
         axios.post(
-            'http://localhost:3000/teams',
+            'https://streetball-back.herokuapp.com/teams',
             {
                 name: name,
                 logo: logo,
