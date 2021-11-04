@@ -135,6 +135,7 @@ const App = () => {
                 ]
             }
         )
+        loadTeams();
         // const newTeam = {
         //     name: name,
         //     logo: logo,
