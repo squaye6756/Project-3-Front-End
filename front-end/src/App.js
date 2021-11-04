@@ -3,90 +3,11 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Teams from './components/Teams.js';
 
-// const team1 = {
-//     name: 'Bunnies',
-//     logo: '',
-//     wins: 3,
-//     losses: 4,
-//     location: 'Chicago',
-//     players: [
-//         {
-//             _id: 4,
-//             name: 'Troy Lee',
-//             skills: 'dribbling, shooting'
-//         },
-//         {
-//             _id: 3,
-//             name: 'Mike Haze',
-//             skills: 'passing, coordination'
-//         },
-//         {
-//             _id: 2,
-//             name: 'Jason Bratt',
-//             skills: 'defense, free throws'
-//         }
-//     ]
-// }
-//
-// const team2 = {
-//     name: 'Tigers',
-//     logo: '',
-//     wins: 7,
-//     losses: 0,
-//     location: 'Detroit',
-//     players: [
-//         {
-//             _id: 1,
-//             name: 'Tyson Daft',
-//             skills: 'defense, shooting'
-//         },
-//         {
-//             _id: 0,
-//             name: 'Emler Fudent',
-//             skills: '?'
-//         },
-//         {
-//             _id: 9,
-//             name: 'Moe Burd',
-//             skills: 'passing, dribbling, breaking ankles'
-//         }
-//     ]
-// }
-//
-// const team3 = {
-//     name: 'Whispers',
-//     logo: '',
-//     wins: 5,
-//     losses: 2,
-//     location: 'Columbus',
-//     players: [
-//         {
-//             _id: 8,
-//             name: 'Scott Dryp',
-//             skills: 'half-court shooting'
-//         },
-//         {
-//             _id: 7,
-//             name: 'Mike Haze',
-//             skills: 'defense, passing, dribbling'
-//         },
-//         {
-//             _id: 6,
-//             name: 'Jason Bratt',
-//             skills: 'free throws, shooting'
-//         }
-//     ]
-// }
-//
-// const teamsList = [team1, team2, team3];
-
 const App = () => {
     const [teams, setTeams] = useState([]);
     const [name, setName] = useState('');
     const [logo, setLogo] = useState('');
     const [playerNames, setPlayerNames] = useState([]);
-    // const [wins, setWins] = useState('');
-    // const [losses, setLosses] = useState('');
     const [teamSkills, setTeamSkills] = useState([]);
 
     const loadTeams = () => {
@@ -134,32 +55,8 @@ const App = () => {
                     }
                 ]
             }
-        )
+        );
         loadTeams();
-        // const newTeam = {
-        //     name: name,
-        //     logo: logo,
-        //     wins: 0,
-        //     losses: 0,
-        //     location: 'Milky Way',
-        //     players: [
-        //         {
-        //             name: playerNames[0],
-        //             skills: teamSkills[0]
-        //         },
-        //         {
-        //             name: playerNames[1],
-        //             skills: teamSkills[1]
-        //         },
-        //         {
-        //             name: playerNames[2],
-        //             skills: teamSkills[2]
-        //         }
-        //     ]
-        // }
-        // teamsList.push(newTeam);
-        // console.log(teamsList);
-        // setTeams(teamsList);
         clearInputs();
     }
 
@@ -167,7 +64,7 @@ const App = () => {
         const playerOneName = document.getElementById('player-name-one').value;
         const playerTwoName = document.getElementById('player-name-two').value;
         const playerThreeName = document.getElementById('player-name-three').value;
-        console.log([playerOneName, playerTwoName, playerThreeName]);
+        // console.log([playerOneName, playerTwoName, playerThreeName]);
         setPlayerNames([playerOneName, playerTwoName, playerThreeName]);
     }
 
@@ -234,7 +131,7 @@ const App = () => {
                     <input type='submit' value='Add Team'/>
                 </form>
             </div>
-            <Teams teams={teams} setTeams={setTeams}/>
+            <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo}/>
         </div>
     )
 }

@@ -17,7 +17,27 @@ const Teams = (props) => {
         skills.style.display = skills.style.display === 'none' ? 'block' : 'none';
     }
 
-    let fakeId = 10;
+    const changePlayersEdit = () => {
+        const editedPlayerOne = document.getElementById('edit-player-name-one').value;
+        const editedPlayerTwo = document.getElementById('edit-player-name-two').value;
+        const editedPlayerThree = document.getElementById('edit-player-name-three').value;
+        props.setPlayerNames([editedPlayerOne, editedPlayerTwo, editedPlayerThree]);
+    }
+
+    const changeSkillsEdit = () => {
+        const editedPOneSkills = document.getElementById('edit-player-one-skills').value;
+        const editedPTwoSkills = document.getElementById('edit-player-two-skills').value;
+        const editedPThreeSkills = document.getElementById('edit-player-three-skills').value;
+        props.setTeamSkills([editedPOneSkills, editedPTwoSkills, editedPThreeSkills]);
+    }
+
+    const changeNameEdit = (event) => {
+        props.setName(event.target.value)
+    }
+
+    const changeLogoEdit = (event) => {
+        props.setLogo(event.target.value)
+    }
 
     const addWin = (team) => {
         axios.put(
@@ -42,11 +62,41 @@ const Teams = (props) => {
     }
 
     const removeTeam = (team) => {
-        axios.delete(
-            `http://localhost:3000/teams/${team._id}`
-        ).then(() => {
+        axios.delete(`http://localhost:3000/teams/${team._id}`)
+        .then(() => {
             loadTeams();
         });
+    }
+
+    const editTeam = (team) => {
+        console.log(props.playerNames[0]);
+        if (props.playerNames[0]) {
+            console.log('counts as false');
+        }
+        axios.put(
+            `http://localhost:3000/teams/${team._id}`,
+            {
+                name: props.name || team.name,
+                logo: props.logo || team.logo,
+                // location: 'Milky Way',
+                players: [
+                    {
+                        name: props.playerNames[0] || team.players[0].name,
+                        skills: props.teamSkills[0] || team.players[0].skills
+                    },
+                    {
+                        name: props.playerNames[1] || team.players[1].name,
+                        skills: props.teamSkills[1] || team.players[1].skills
+                    },
+                    {
+                        name: props.playerNames[2] || team.players[2].name,
+                        skills: props.teamSkills[2] || team.players[2].skills
+                    }
+                ]
+            }
+        ).then(() => {
+            loadTeams();
+        })
     }
 
     return (
@@ -65,8 +115,7 @@ const Teams = (props) => {
                                 <h5><u>STARTING 3</u></h5>
                                 <ul>
                                     {team.players.map((teammate) => {
-                                        let playerId = teammate._id || fakeId;
-                                        fakeId++;
+                                        let playerId = teammate._id;
                                         playerId = playerId.toString();
                                         return (
                                             <>
@@ -83,35 +132,35 @@ const Teams = (props) => {
                             </div>
                             <div className='edit-team'>
                                 <h2>Edit Team</h2>
-                                <form>
+                                <form onSubmit={() => {editTeam(team)}}>
                                     <div>
                                         <label htmlFor='edit-name'>Name: </label>
-                                        <input type='text' id='edit-name'/>
+                                        <input type='text' id='edit-name' onChange={changeNameEdit}/>
                                     </div>
                                     <div>
                                         <label htmlFor='edit-logo'>Logo: </label>
-                                        <input type='text' id='edit-logo' placeholder='image URL'/>
+                                        <input type='text' id='edit-logo' placeholder='image URL' onChange={changeLogoEdit}/>
                                     </div>
                                     <div>
                                         <h3>Starting 3:</h3>
                                     </div>
                                     <div className='edit-player-input'>
                                         <label htmlFor='edit-player-name-one'>Player Name: </label>
-                                        <input type='text' id='edit-player-name-one' className='edit-player-name-input'/>
+                                        <input type='text' id='edit-player-name-one' className='edit-player-name-input' onChange={changePlayersEdit}/>
                                         <label htmlFor='edit-player-one-skills'>Skills: </label>
-                                        <input type='text' id='edit-player-one-skills'/>
+                                        <input type='text' id='edit-player-one-skills' onChange={changeSkillsEdit}/>
                                     </div>
                                     <div className='edit-player-input'>
                                         <label htmlFor='edit-player-name-two'>Player Name: </label>
-                                        <input type='text' id='edit-player-name-two' className='edit-player-name-input'/>
+                                        <input type='text' id='edit-player-name-two' className='edit-player-name-input' onChange={changePlayersEdit}/>
                                         <label htmlFor='edit-player-two-skills'>Skills: </label>
-                                        <input type='text' id='edit-player-two-skills'/>
+                                        <input type='text' id='edit-player-two-skills' onChange={changeSkillsEdit}/>
                                     </div>
                                     <div className='edit-player-input'>
                                         <label htmlFor='edit-player-name-three'>Player Name: </label>
-                                        <input type='text' id='edit-player-name-three' className='edit-player-name-input'/>
+                                        <input type='text' id='edit-player-name-three' className='edit-player-name-input' onChange={changePlayersEdit}/>
                                         <label htmlFor='edit-player-three-skills'>Skills: </label>
-                                        <input type='text' id='edit-player-three-skills'/>
+                                        <input type='text' id='edit-player-three-skills' onChange={changeSkillsEdit}/>
                                     </div>
                                     <input type='submit' value='Submit Team Edits'/>
                                 </form>
