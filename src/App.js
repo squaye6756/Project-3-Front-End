@@ -11,7 +11,7 @@ const App = () => {
     const [teamSkills, setTeamSkills] = useState([]);
 
     const loadTeams = () => {
-        axios.get('http://localhost:3000/teams')
+        axios.get('https://streetball-back.herokuapp.com/teams')
         .then(
             (response) => {
                 // console.log(response.data);
