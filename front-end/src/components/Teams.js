@@ -1,6 +1,16 @@
 import React from 'react';
+import axios from 'axios';
 
 const Teams = (props) => {
+
+    const loadTeams = () => {
+        axios.get('http://localhost:3000/teams')
+        .then(
+            (response) => {
+                props.setTeams(response.data);
+            }
+        );
+    }
 
     const toggleSkill = (id) => {
         const skills = document.getElementById(id);
@@ -8,6 +18,28 @@ const Teams = (props) => {
     }
 
     let fakeId = 10;
+
+    const addWin = (team) => {
+        axios.put(
+            `http://localhost:3000/teams/${team._id}`,
+            {
+                wins: team.wins + 1
+            }
+        ).then(() => {
+            loadTeams();
+        });
+    }
+
+    const addLoss = (team) => {
+        axios.put(
+            `http://localhost:3000/teams/${team._id}`,
+            {
+                losses: team.losses + 1
+            }
+        ).then(() => {
+            loadTeams();
+        });
+    }
 
     return (
         <div className='teams-container'>
@@ -74,6 +106,10 @@ const Teams = (props) => {
                                         <input type='text' id='edit-player-three-skills'/>
                                     </div>
                                     <input type='submit' value='Submit Team Edits'/>
+                                    <div className='record-btns'>
+                                        <button onClick={() => {addWin(team)}}>Add Win</button>
+                                        <button onClick={() => {addLoss(team)}}>Add Loss</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

@@ -22,6 +22,10 @@ h3 {
     justify-content: space-between;
     padding: 10px;
 }
+.team-logo {
+    height: 100px;
+    width: 100px;
+}
 /* .team-info {
     display: flex;
 } */
