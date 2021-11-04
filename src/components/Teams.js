@@ -144,7 +144,22 @@ const Teams = (props) => {
                                     <div>
                                         <h3>Starting 3:</h3>
                                     </div>
-                                    <div className='edit-player-input'>
+                                    {team.players.map((teammate) => {
+                                        const playerId = teammate._id.toString();
+                                        const editPlayerFieldId = `edit-player-${playerId}`;
+                                        const editSkillsFieldId = `edit-player-skills-${playerId}`;
+                                        return (
+                                            <>
+                                                <div className='edit-player-input'>
+                                                    <label htmlFor={editPlayerFieldId}>Player Name: </label>
+                                                    <input type='text' id={editPlayerFieldId} className='edit-player-name-input' onChange={changePlayersEdit}/>
+                                                    <label htmlFor={editSkillsFieldId}>Skills: </label>
+                                                    <input type='text' id={editSkillsFieldId} onChange={changeSkillsEdit}/>
+                                                </div>
+                                            </>
+                                        )
+                                    })}
+                                    {/*<div className='edit-player-input'>
                                         <label htmlFor='edit-player-name-one'>Player Name: </label>
                                         <input type='text' id='edit-player-name-one' className='edit-player-name-input' onChange={changePlayersEdit}/>
                                         <label htmlFor='edit-player-one-skills'>Skills: </label>
@@ -161,7 +176,7 @@ const Teams = (props) => {
                                         <input type='text' id='edit-player-name-three' className='edit-player-name-input' onChange={changePlayersEdit}/>
                                         <label htmlFor='edit-player-three-skills'>Skills: </label>
                                         <input type='text' id='edit-player-three-skills' onChange={changeSkillsEdit}/>
-                                    </div>
+                                    </div>*/}
                                     <input type='submit' value='Submit Team Edits'/>
                                 </form>
                                 <div className='record-btns'>
