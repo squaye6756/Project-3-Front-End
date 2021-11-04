@@ -14,6 +14,7 @@ const App = () => {
         axios.get('http://localhost:3000/teams')
         .then(
             (response) => {
+                // console.log(response.data);
                 setTeams(response.data);
             }
         );
@@ -55,8 +56,9 @@ const App = () => {
                     }
                 ]
             }
-        );
-        loadTeams();
+        ).then(() => {
+            loadTeams();
+        });
         clearInputs();
     }
 
@@ -85,12 +87,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:3000/teams')
-        .then(
-            (response) => {
-                setTeams(response.data);
-            }
-        )
+        loadTeams();
     }, [])
 
     return (
