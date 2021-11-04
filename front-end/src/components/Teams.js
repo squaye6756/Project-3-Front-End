@@ -41,6 +41,14 @@ const Teams = (props) => {
         });
     }
 
+    const removeTeam = (team) => {
+        axios.delete(
+            `http://localhost:3000/teams/${team._id}`
+        ).then(() => {
+            loadTeams();
+        });
+    }
+
     return (
         <div className='teams-container'>
         {
@@ -106,11 +114,12 @@ const Teams = (props) => {
                                         <input type='text' id='edit-player-three-skills'/>
                                     </div>
                                     <input type='submit' value='Submit Team Edits'/>
-                                    <div className='record-btns'>
-                                        <button onClick={() => {addWin(team)}}>Add Win</button>
-                                        <button onClick={() => {addLoss(team)}}>Add Loss</button>
-                                    </div>
                                 </form>
+                                <div className='record-btns'>
+                                    <button onClick={() => {addWin(team)}}>Add Win</button>
+                                    <button onClick={() => {addLoss(team)}}>Add Loss</button>
+                                </div>
+                                <button className='delete-btn' onClick={() => {removeTeam(team)}}>Remove Team</button>
                             </div>
                         </div>
                     </>
