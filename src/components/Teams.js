@@ -17,17 +17,24 @@ const Teams = (props) => {
         skills.style.display = skills.style.display === 'none' ? 'block' : 'none';
     }
 
-    const changePlayersEdit = () => {
-        const editedPlayerOne = document.getElementById('edit-player-name-one').value;
-        const editedPlayerTwo = document.getElementById('edit-player-name-two').value;
-        const editedPlayerThree = document.getElementById('edit-player-name-three').value;
+    const changePlayersEdit = (team) => {
+        const playerOneId = team.players[0]._id.toString();
+        const playerTwoId = team.players[1]._id.toString();
+        const playerThreeId = team.players[2]._id.toString();
+        // const editPlayerFieldId = `edit-player-${playerId}``;
+        const editedPlayerOne = document.getElementById(`edit-player-${playerOneId}`).value;
+        const editedPlayerTwo = document.getElementById(`edit-player-${playerTwoId}`).value;
+        const editedPlayerThree = document.getElementById(`edit-player-${playerThreeId}`).value;
         props.setPlayerNames([editedPlayerOne, editedPlayerTwo, editedPlayerThree]);
     }
 
-    const changeSkillsEdit = () => {
-        const editedPOneSkills = document.getElementById('edit-player-one-skills').value;
-        const editedPTwoSkills = document.getElementById('edit-player-two-skills').value;
-        const editedPThreeSkills = document.getElementById('edit-player-three-skills').value;
+    const changeSkillsEdit = (team) => {
+        const playerOneId = team.players[0]._id.toString();
+        const playerTwoId = team.players[1]._id.toString();
+        const playerThreeId = team.players[2]._id.toString();
+        const editedPOneSkills = document.getElementById(`edit-player-skills-${playerOneId}`).value;
+        const editedPTwoSkills = document.getElementById(`edit-player-skills-${playerTwoId}`).value;
+        const editedPThreeSkills = document.getElementById(`edit-player-skills-${playerThreeId}`).value;
         props.setTeamSkills([editedPOneSkills, editedPTwoSkills, editedPThreeSkills]);
     }
 
@@ -152,31 +159,13 @@ const Teams = (props) => {
                                             <>
                                                 <div className='edit-player-input'>
                                                     <label htmlFor={editPlayerFieldId}>Player Name: </label>
-                                                    <input type='text' id={editPlayerFieldId} className='edit-player-name-input' onChange={changePlayersEdit}/>
+                                                    <input type='text' id={editPlayerFieldId} className='edit-player-name-input' onChange={() => {changePlayersEdit(team)}}/>
                                                     <label htmlFor={editSkillsFieldId}>Skills: </label>
-                                                    <input type='text' id={editSkillsFieldId} onChange={changeSkillsEdit}/>
+                                                    <input type='text' id={editSkillsFieldId} onChange={() => {changeSkillsEdit(team)}}/>
                                                 </div>
                                             </>
                                         )
                                     })}
-                                    {/*<div className='edit-player-input'>
-                                        <label htmlFor='edit-player-name-one'>Player Name: </label>
-                                        <input type='text' id='edit-player-name-one' className='edit-player-name-input' onChange={changePlayersEdit}/>
-                                        <label htmlFor='edit-player-one-skills'>Skills: </label>
-                                        <input type='text' id='edit-player-one-skills' onChange={changeSkillsEdit}/>
-                                    </div>
-                                    <div className='edit-player-input'>
-                                        <label htmlFor='edit-player-name-two'>Player Name: </label>
-                                        <input type='text' id='edit-player-name-two' className='edit-player-name-input' onChange={changePlayersEdit}/>
-                                        <label htmlFor='edit-player-two-skills'>Skills: </label>
-                                        <input type='text' id='edit-player-two-skills' onChange={changeSkillsEdit}/>
-                                    </div>
-                                    <div className='edit-player-input'>
-                                        <label htmlFor='edit-player-name-three'>Player Name: </label>
-                                        <input type='text' id='edit-player-name-three' className='edit-player-name-input' onChange={changePlayersEdit}/>
-                                        <label htmlFor='edit-player-three-skills'>Skills: </label>
-                                        <input type='text' id='edit-player-three-skills' onChange={changeSkillsEdit}/>
-                                    </div>*/}
                                     <input type='submit' value='Submit Team Edits'/>
                                 </form>
                                 <div className='record-btns'>
