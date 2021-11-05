@@ -14,8 +14,8 @@ const App = () => {
 
     const loadTeams = () => {
         // console.log('axios get call');
-        axios.get('https://streetball-back.herokuapp.com/teams')
-        // axios.get('http://localhost:3000/teams')
+        // axios.get('https://streetball-back.herokuapp.com/teams')
+        axios.get('http://localhost:3000/teams')
         .then(
             (response) => {
                 // console.log('response', response.data);
@@ -48,8 +48,8 @@ const App = () => {
         event.preventDefault();
         // console.log('axios post call');
         axios.post(
-            // 'http://localhost:3000/teams',
-            'https://streetball-back.herokuapp.com/teams',
+            'http://localhost:3000/teams',
+            // 'https://streetball-back.herokuapp.com/teams',
             {
                 name: name,
                 logo: logo,
@@ -113,15 +113,15 @@ const App = () => {
             sortedRankedArr[i].rankObtained = i + 1;
             //put request
             axios.put(
-                // `http://localhost:3000/teams/${sortedRankedArr[i]._id}`,
-                `https://streetball-back.herokuapp.com/teams/${sortedRankedArr[i]._id}`,
+                `http://localhost:3000/teams/${sortedRankedArr[i]._id}`,
+                // `https://streetball-back.herokuapp.com/teams/${sortedRankedArr[i]._id}`,
                 {
                     rank: sortedRankedArr[i].rankObtained
                 }
-            )/*.then(() => {
-                console.log('before last loadTeams()');
+            ).then(() => {
+                // console.log('before last loadTeams()');
                 loadTeams();
-            });*/
+            });
         }
         // console.log('at last', sortedRankedArr);
     }
