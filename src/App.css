@@ -1,55 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+
 h1, .add-team, .edit-team {
     text-align: center;
 }
+
+h1 {
+    /* font-family: 'Yanone Kaffeesatz', sans-serif; */
+    font-family: 'Carter One', cursive;
+    font-size: 3.6rem;
+    background-color: #000;
+    color: #fff;
+}
+
 h2 {
     margin-bottom: 5px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
+
 h3 {
     margin: 5px auto;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
+
 .player-name-input, .edit-player-name-input {
     margin-right: 10px;
 }
+
 .teams-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-around;
 }
+
 .team {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background-color: #dbe47c;
-    margin: 10px 20px;
+    /* background-color: #dbe47c; */
+    background-color: #1d428a;
+    color: #fff;
+    margin: 10px auto;
+    width: 840px;
+    border-radius: 3.6px;
+    box-shadow: 1.2px 1.2px 6.3px 1.3px #00000075;
 }
-.team-info {
+
+.team button {
+    background-color: black;
+    border-radius: 4.2px;
+    color: #fff;
+    margin: 3px 3px;
+}
+
+.team .team-info {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.team-info {
+    align-self: center;
+    width: 330px;
+}
+
 .team-header, .team-logo {
     text-align: center;
 }
+
+.team-header h3:first-child{
+    text-shadow: 1px 1.2px 2px #000;
+    font-size: 2.4rem;
+    /* color: #c8102e;     */
+}
+
 .wins {
     color: green;
 }
+
 .losses {
-    color: red;
+    color: #c8102e;
 }
+
 .team-logo {
     height: 100px;
     width: 100px;
 }
+
 h5 {
-    margin-bottom: 0;
+    margin-bottom: 0;   
 }
+
 ul {
     padding: 0;
     text-align: center;
     list-style-type: none;
 }
+
 .hideToggle {
     display: none;
+}
+
+input {
+    margin: .3em .1em;
+}
+
+.add-team input[type="submit"] {
+    background-color: #000;
+    color: #fff;
+    border-radius: 4.2px;
+}
+
+.edit-team input[type="submit"] {
+    border-radius: 4.2px;
 }
