@@ -32,6 +32,7 @@ const App = () => {
         document.getElementById('player-three-skills').value = '';
         document.getElementById('name').value = '';
         document.getElementById('logo').value = '';
+        document.getElementById('location').value = '';
     }
 
     const addTeam = (event) => {
