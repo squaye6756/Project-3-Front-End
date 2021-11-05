@@ -9,12 +9,15 @@ const App = () => {
     const [logo, setLogo] = useState('');
     const [playerNames, setPlayerNames] = useState([]);
     const [teamSkills, setTeamSkills] = useState([]);
+    const [teamId, setTeamId] = useState('');
+    const [location, setLocation] = useState('');
 
     const loadTeams = () => {
+        console.log('axios get call');
         axios.get('https://streetball-back.herokuapp.com/teams')
         .then(
             (response) => {
-                // console.log(response.data);
+                console.log(response.data);
                 setTeams(response.data);
             }
         );
@@ -33,14 +36,16 @@ const App = () => {
 
     const addTeam = (event) => {
         event.preventDefault();
+        console.log('axios post call');
         axios.post(
+            // 'http://localhost:3000/teams',
             'https://streetball-back.herokuapp.com/teams',
             {
                 name: name,
                 logo: logo,
                 wins: 0,
                 losses: 0,
-                location: 'Milky Way',
+                location: location,
                 players: [
                     {
                         name: playerNames[0],
@@ -57,6 +62,7 @@ const App = () => {
                 ]
             }
         ).then(() => {
+            console.log('loadTeams() call');
             loadTeams();
         });
         clearInputs();
@@ -86,6 +92,10 @@ const App = () => {
         setLogo(event.target.value)
     }
 
+    const changeLocation = (event) => {
+        setLocation(event.target.value);
+    }
+
     useEffect(() => {
         loadTeams();
     }, [])
@@ -103,6 +113,10 @@ const App = () => {
                     <div>
                         <label htmlFor='logo'>Logo: </label>
                         <input type='text' id='logo' placeholder='image URL' onChange={changeLogo}/>
+                    </div>
+                    <div>
+                        <label htmlFor='location'>Location: </label>
+                        <input type='text' id='logo' onChange={changeLocation}/>
                     </div>
                     <div>
                         <h3>Starting 3:</h3>
@@ -128,7 +142,7 @@ const App = () => {
                     <input type='submit' value='Add Team'/>
                 </form>
             </div>
-            <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo}/>
+            <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo} teamId={teamId} setTeamId={setTeamId} location={location} setLocation={setLocation}/>
         </div>
     )
 }
