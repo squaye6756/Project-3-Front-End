@@ -13,14 +13,23 @@ const App = () => {
     const [location, setLocation] = useState('');
 
     const loadTeams = () => {
-        console.log('axios get call');
+        // console.log('axios get call');
         axios.get('https://streetball-back.herokuapp.com/teams')
+        // axios.get('http://localhost:3000/teams')
         .then(
             (response) => {
-                console.log(response.data);
+                // console.log('response', response.data);
                 setTeams(response.data);
             }
         );
+    }
+
+    const clearStates = () => {
+        setName('');
+        setLogo('');
+        setPlayerNames([]);
+        setTeamSkills([]);
+        setLocation([]);
     }
 
     const clearInputs = () => {
@@ -37,7 +46,7 @@ const App = () => {
 
     const addTeam = (event) => {
         event.preventDefault();
-        console.log('axios post call');
+        // console.log('axios post call');
         axios.post(
             // 'http://localhost:3000/teams',
             'https://streetball-back.herokuapp.com/teams',
@@ -46,6 +55,7 @@ const App = () => {
                 logo: logo,
                 wins: 0,
                 losses: 0,
+                rank: -1,
                 location: location,
                 players: [
                     {
@@ -63,10 +73,11 @@ const App = () => {
                 ]
             }
         ).then(() => {
-            console.log('loadTeams() call');
+            // console.log('loadTeams() call');
             loadTeams();
         });
         clearInputs();
+        clearStates();
     }
 
     const changePlayers = () => {
@@ -86,15 +97,77 @@ const App = () => {
     }
 
     const changeName = (event) => {
-        setName(event.target.value)
+        setName(event.target.value);
     }
 
     const changeLogo = (event) => {
-        setLogo(event.target.value)
+        setLogo(event.target.value);
     }
 
     const changeLocation = (event) => {
         setLocation(event.target.value);
+    }
+
+    const displayRankings = (sortedRankedArr) => {
+        for (let i = 0; i < sortedRankedArr.length; i++) {
+            sortedRankedArr[i].rankObtained = i + 1;
+            //put request
+            axios.put(
+                // `http://localhost:3000/teams/${sortedRankedArr[i]._id}`,
+                `https://streetball-back.herokuapp.com/teams${sortedRankedArr[i]._id}`,
+                {
+                    rank: sortedRankedArr[i].rankObtained
+                }
+            )/*.then(() => {
+                console.log('before last loadTeams()');
+                loadTeams();
+            });*/
+        }
+        // console.log('at last', sortedRankedArr);
+    }
+
+    const sortByWinPercentage = (rankedArr) => {
+        for (let i = 0; i < rankedArr.length - 1; i++) {
+            for (let j = 0; j < rankedArr.length - 1; j++) {
+                if (rankedArr[j].winPercentage < rankedArr[j + 1].winPercentage) {
+                    // console.log('swap');
+                    const temp = rankedArr[j];
+                    rankedArr[j] = rankedArr[j + 1];
+                    rankedArr[j + 1] = temp;
+                }
+            }
+        }
+        return rankedArr;
+        // displayRankings(rankedArr);
+    }
+
+    const copyTeams = () => {
+        const copiedArr = [];
+        for (const team of teams) {
+            copiedArr.push(team);
+        }
+        return copiedArr;
+    }
+
+    const assignWinPercentages = () => {
+        for (const team of teams) {
+            const totalGames = team.wins + team.losses;
+            if (totalGames === 0) {
+                team.winPercentage = -1;
+            } else {
+                team.winPercentage = team.wins / totalGames;
+            }
+        }
+        // console.log('after assigning win %s', teams);
+    }
+
+    const rankTeams = () => {
+        assignWinPercentages();
+        const teamsToSort = copyTeams();
+        // console.log('copied array', teamsToSort);
+        const sortedTeams = sortByWinPercentage(teamsToSort);
+        // console.log('sorted teams', sortedTeams);
+        displayRankings(sortedTeams);
     }
 
     useEffect(() => {
@@ -142,6 +215,9 @@ const App = () => {
                     </div>
                     <input type='submit' value='Add Team'/>
                 </form>
+                <div>
+                    <button onClick={rankTeams}>Rank Teams</button>
+                </div>
             </div>
             <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo} teamId={teamId} setTeamId={setTeamId} location={location} setLocation={setLocation}/>
         </div>
