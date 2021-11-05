@@ -4,7 +4,8 @@ import axios from 'axios';
 const Teams = (props) => {
 
     const loadTeams = () => {
-        axios.get('https://streetball-back.herokuapp.com/teams')
+        // axios.get('http://localhost:3000/teams')
+        axios.get(`https://streetball-back.herokuapp.com/teams`)
         .then(
             (response) => {
                 props.setTeams(response.data);
@@ -39,15 +40,20 @@ const Teams = (props) => {
     }
 
     const changeNameEdit = (event) => {
-        props.setName(event.target.value)
+        props.setName(event.target.value);
     }
 
     const changeLogoEdit = (event) => {
-        props.setLogo(event.target.value)
+        props.setLogo(event.target.value);
+    }
+
+    const changeLocationEdit = (event) => {
+        props.setLocation(event.target.value);
     }
 
     const addWin = (team) => {
         axios.put(
+            // `http://localhost:3000/teams/${team._id}`,
             `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 wins: team.wins + 1
@@ -59,6 +65,7 @@ const Teams = (props) => {
 
     const addLoss = (team) => {
         axios.put(
+            // `http://localhost:3000/teams/${team._id}`,
             `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 losses: team.losses + 1
@@ -69,6 +76,7 @@ const Teams = (props) => {
     }
 
     const removeTeam = (team) => {
+        // axios.delete(`http://localhost:3000/teams/${team._id}`)
         axios.delete(`https://streetball-back.herokuapp.com/teams/${team._id}`)
         .then(() => {
             loadTeams();
@@ -76,16 +84,15 @@ const Teams = (props) => {
     }
 
     const editTeam = (team) => {
-        console.log(props.playerNames[0]);
-        if (props.playerNames[0]) {
-            console.log('counts as false');
-        }
+        // event.preventDefault();
+        console.log('edit call');
         axios.put(
+            // `http://localhost:3000/teams/${team._id}`,
             `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 name: props.name || team.name,
                 logo: props.logo || team.logo,
-                // location: 'Milky Way',
+                location: props.location || team.location,
                 players: [
                     {
                         name: props.playerNames[0] || team.players[0].name,
@@ -102,7 +109,10 @@ const Teams = (props) => {
                 ]
             }
         ).then(() => {
+            console.log('loadTeams() call');
             loadTeams();
+        }).catch((error) =>  {
+            console.log('in error', error.response.data.error);
         })
     }
 
@@ -115,7 +125,7 @@ const Teams = (props) => {
                         <div className='team'>
                             <div className='team-info'>
                                 <div className='team-header'>
-                                    <h3>{team.name}</h3>
+                                    <h3>{team.location} {team.name}</h3>
                                     <h3><span className='wins'>{team.wins}</span>-<span className='losses'>{team.losses}</span></h3>
                                 </div>
                                 <img src={team.logo} alt={team.name} className='team-logo'/>
@@ -146,6 +156,10 @@ const Teams = (props) => {
                                     <div>
                                         <label htmlFor='edit-logo'>Logo: </label>
                                         <input type='text' id='edit-logo' placeholder='image URL' onChange={changeLogoEdit}/>
+                                    </div>
+                                    <div>
+                                        <label htmlFor='edit-location'>Location: </label>
+                                        <input type='text' id='edit-location' onChange={changeLocationEdit}/>
                                     </div>
                                     <div>
                                         <h3>Starting 3:</h3>
