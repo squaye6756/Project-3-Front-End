@@ -18,6 +18,22 @@ const Teams = (props) => {
         skills.style.display = skills.style.display === 'inline' ? 'none' : 'inline';
     }
 
+    const clearEditFields = () => {
+        // console.log(document.getElementsByClassName('edit-header'));
+        const editHeaderFields = document.getElementsByClassName('edit-header');
+        for (const field of editHeaderFields) {
+            field.value = '';
+        }
+        const editPlayerNameFields = document.getElementsByClassName('edit-player-name-input');
+        for (const field of editPlayerNameFields) {
+            field.value = '';
+        }
+        const editPlayerSkillsFields = document.getElementsByClassName('edit-player-skills-input');
+        for (const field of editPlayerSkillsFields) {
+            field.value = '';
+        }
+    }
+
     const changeTeamToEdit = (team) => {
         props.setTeamId(team._id);
     }
@@ -156,6 +172,8 @@ const Teams = (props) => {
             // console.log('loadTeams() call');
             loadTeams();
         });
+        clearEditFields();
+        // props.clearStates();
     }
 
     return (
@@ -194,15 +212,15 @@ const Teams = (props) => {
                                 <form onSubmit={editTeam}>
                                     <div>
                                         <label htmlFor={`edit-name-${team._id.toString()}`}>Name: </label>
-                                        <input type='text' id={`edit-name-${team._id.toString()}`} onChange={changeNameEdit}/>
+                                        <input type='text' className='edit-header' id={`edit-name-${team._id.toString()}`} onChange={changeNameEdit}/>
                                     </div>
                                     <div>
                                         <label htmlFor={`edit-logo-${team._id.toString()}`}>Logo: </label>
-                                        <input type='text' id={`edit-logo-${team._id.toString()}`} placeholder='image URL' onChange={changeLogoEdit}/>
+                                        <input type='text' className='edit-header' id={`edit-logo-${team._id.toString()}`} placeholder='image URL' onChange={changeLogoEdit}/>
                                     </div>
                                     <div>
                                         <label htmlFor={`edit-location-${team._id.toString()}`}>Location: </label>
-                                        <input type='text' id={`edit-location-${team._id.toString()}`} onChange={changeLocationEdit}/>
+                                        <input type='text' className='edit-header' id={`edit-location-${team._id.toString()}`} onChange={changeLocationEdit}/>
                                     </div>
                                     <div>
                                         <h3>Starting 3:</h3>
@@ -217,7 +235,7 @@ const Teams = (props) => {
                                                     <label htmlFor={editPlayerFieldId}>Player Name: </label>
                                                     <input type='text' id={editPlayerFieldId} className='edit-player-name-input' onChange={() => {changePlayersEdit(team)}}/>
                                                     <label htmlFor={editSkillsFieldId}>Skills: </label>
-                                                    <input type='text' id={editSkillsFieldId} onChange={() => {changeSkillsEdit(team)}}/>
+                                                    <input type='text' id={editSkillsFieldId} className='edit-player-skills-input' onChange={() => {changeSkillsEdit(team)}}/>
                                                 </div>
                                             </>
                                         )
