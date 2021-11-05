@@ -117,7 +117,7 @@ const App = () => {
                     </div>
                     <div>
                         <label htmlFor='location'>Location: </label>
-                        <input type='text' id='logo' onChange={changeLocation}/>
+                        <input type='text' id='location' onChange={changeLocation}/>
                     </div>
                     <div>
                         <h3>Starting 3:</h3>
