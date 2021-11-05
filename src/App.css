@@ -21,6 +21,8 @@ h3 {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
+    background-color: #dbe47c;
+    margin: 10px 20px;
 }
 .team-info {
     display: flex;
@@ -29,6 +31,12 @@ h3 {
 }
 .team-header, .team-logo {
     text-align: center;
+}
+.wins {
+    color: green;
+}
+.losses {
+    color: red;
 }
 .team-logo {
     height: 100px;
