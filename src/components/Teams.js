@@ -4,8 +4,8 @@ import axios from 'axios';
 const Teams = (props) => {
 
     const loadTeams = () => {
-        // axios.get('http://localhost:3000/teams')
-        axios.get(`https://streetball-back.herokuapp.com/teams`)
+        axios.get('http://localhost:3000/teams')
+        // axios.get(`https://streetball-back.herokuapp.com/teams`)
         .then(
             (response) => {
                 props.setTeams(response.data);
@@ -18,6 +18,30 @@ const Teams = (props) => {
         skills.style.display = skills.style.display === 'inline' ? 'none' : 'inline';
     }
 
+    const changeTeamToEdit = (team) => {
+        props.setTeamId(team._id);
+    }
+
+    const getCurrTeamByStateId = () => {
+        for (const team of props.teams) {
+            // console.log(team._id);
+            if (team._id === props.teamId) {
+                // console.log('found matching team');
+                return team;
+            }
+        }
+    }
+
+    const findCurrTeamById = (id) => {
+        for (const team of props.teams) {
+            // console.log(team._id);
+            if (team._id === id) {
+                // console.log('found matching team');
+                return team;
+            }
+        }
+    }
+
     const changePlayersEdit = (team) => {
         const playerOneId = team.players[0]._id.toString();
         const playerTwoId = team.players[1]._id.toString();
@@ -27,6 +51,7 @@ const Teams = (props) => {
         const editedPlayerTwo = document.getElementById(`edit-player-${playerTwoId}`).value;
         const editedPlayerThree = document.getElementById(`edit-player-${playerThreeId}`).value;
         props.setPlayerNames([editedPlayerOne, editedPlayerTwo, editedPlayerThree]);
+        changeTeamToEdit(team);
     }
 
     const changeSkillsEdit = (team) => {
@@ -37,24 +62,33 @@ const Teams = (props) => {
         const editedPTwoSkills = document.getElementById(`edit-player-skills-${playerTwoId}`).value;
         const editedPThreeSkills = document.getElementById(`edit-player-skills-${playerThreeId}`).value;
         props.setTeamSkills([editedPOneSkills, editedPTwoSkills, editedPThreeSkills]);
+        changeTeamToEdit(team);
     }
 
     const changeNameEdit = (event) => {
+        // console.log(event.target);
+        // console.log(event.target.id);
+        const currTeam = findCurrTeamById(event.target.id.split('-')[2]);
+        changeTeamToEdit(currTeam);
         props.setName(event.target.value);
     }
 
     const changeLogoEdit = (event) => {
+        const currTeam = findCurrTeamById(event.target.id.split('-')[2]);
+        changeTeamToEdit(currTeam);
         props.setLogo(event.target.value);
     }
 
     const changeLocationEdit = (event) => {
+        const currTeam = findCurrTeamById(event.target.id.split('-')[2]);
+        changeTeamToEdit(currTeam);
         props.setLocation(event.target.value);
     }
 
     const addWin = (team) => {
         axios.put(
-            // `http://localhost:3000/teams/${team._id}`,
-            `https://streetball-back.herokuapp.com/teams/${team._id}`,
+            `http://localhost:3000/teams/${team._id}`,
+            // `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 wins: team.wins + 1
             }
@@ -65,8 +99,8 @@ const Teams = (props) => {
 
     const addLoss = (team) => {
         axios.put(
-            // `http://localhost:3000/teams/${team._id}`,
-            `https://streetball-back.herokuapp.com/teams/${team._id}`,
+            `http://localhost:3000/teams/${team._id}`,
+            // `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 losses: team.losses + 1
             }
@@ -76,44 +110,52 @@ const Teams = (props) => {
     }
 
     const removeTeam = (team) => {
-        // axios.delete(`http://localhost:3000/teams/${team._id}`)
-        axios.delete(`https://streetball-back.herokuapp.com/teams/${team._id}`)
+        axios.delete(`http://localhost:3000/teams/${team._id}`)
+        // axios.delete(`https://streetball-back.herokuapp.com/teams/${team._id}`)
         .then(() => {
             loadTeams();
         });
     }
 
-    const editTeam = (team) => {
-        // event.preventDefault();
-        console.log('edit call');
+    const editTeam = (event) => {
+        event.preventDefault();
+        // console.log('edit call');
+        const currTeam = getCurrTeamByStateId();
+        // let currTeam;
+        // for (const team of props.teams) {
+        //     // console.log(team._id);
+        //     if (team._id === props.teamId) {
+        //         // console.log('found matching team');
+        //         currTeam = team;
+        //     }
+        // }
+        // console.log('now putting');
         axios.put(
-            // `http://localhost:3000/teams/${team._id}`,
-            `https://streetball-back.herokuapp.com/teams/${team._id}`,
+            `http://localhost:3000/teams/${props.teamId}`,
+            // `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
-                name: props.name || team.name,
-                logo: props.logo || team.logo,
-                location: props.location || team.location,
+                name: props.name || currTeam.name,
+                logo: props.logo || currTeam.logo,
+                location: props.location || currTeam.location,
                 players: [
                     {
-                        name: props.playerNames[0] || team.players[0].name,
-                        skills: props.teamSkills[0] || team.players[0].skills
+                        name: props.playerNames[0] || currTeam.players[0].name,
+                        skills: props.teamSkills[0] || currTeam.players[0].skills
                     },
                     {
-                        name: props.playerNames[1] || team.players[1].name,
-                        skills: props.teamSkills[1] || team.players[1].skills
+                        name: props.playerNames[1] || currTeam.players[1].name,
+                        skills: props.teamSkills[1] || currTeam.players[1].skills
                     },
                     {
-                        name: props.playerNames[2] || team.players[2].name,
-                        skills: props.teamSkills[2] || team.players[2].skills
+                        name: props.playerNames[2] || currTeam.players[2].name,
+                        skills: props.teamSkills[2] || currTeam.players[2].skills
                     }
                 ]
             }
         ).then(() => {
-            console.log('loadTeams() call');
+            // console.log('loadTeams() call');
             loadTeams();
-        }).catch((error) =>  {
-            console.log('in error', error.response.data.error);
-        })
+        });
     }
 
     return (
@@ -149,18 +191,18 @@ const Teams = (props) => {
                             </div>
                             <div className='edit-team'>
                                 <h2>Edit Team</h2>
-                                <form onSubmit={() => {editTeam(team)}}>
+                                <form onSubmit={editTeam}>
                                     <div>
-                                        <label htmlFor='edit-name'>Name: </label>
-                                        <input type='text' id='edit-name' onChange={changeNameEdit}/>
+                                        <label htmlFor={`edit-name-${team._id.toString()}`}>Name: </label>
+                                        <input type='text' id={`edit-name-${team._id.toString()}`} onChange={changeNameEdit}/>
                                     </div>
                                     <div>
-                                        <label htmlFor='edit-logo'>Logo: </label>
-                                        <input type='text' id='edit-logo' placeholder='image URL' onChange={changeLogoEdit}/>
+                                        <label htmlFor={`edit-logo-${team._id.toString()}`}>Logo: </label>
+                                        <input type='text' id={`edit-logo-${team._id.toString()}`} placeholder='image URL' onChange={changeLogoEdit}/>
                                     </div>
                                     <div>
-                                        <label htmlFor='edit-location'>Location: </label>
-                                        <input type='text' id='edit-location' onChange={changeLocationEdit}/>
+                                        <label htmlFor={`edit-location-${team._id.toString()}`}>Location: </label>
+                                        <input type='text' id={`edit-location-${team._id.toString()}`} onChange={changeLocationEdit}/>
                                     </div>
                                     <div>
                                         <h3>Starting 3:</h3>
