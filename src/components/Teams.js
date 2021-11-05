@@ -127,6 +127,7 @@ const Teams = (props) => {
                                 <div className='team-header'>
                                     <h3>{team.location} {team.name}</h3>
                                     <h3><span className='wins'>{team.wins}</span>-<span className='losses'>{team.losses}</span></h3>
+                                    <h3>#{team.rank}</h3>
                                 </div>
                                 <img src={team.logo} alt={team.name} className='team-logo'/>
                                 <h5><u>STARTING 3</u></h5>
