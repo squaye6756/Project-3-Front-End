@@ -10,6 +10,8 @@ h1 {
     font-size: 3.6rem;
     background-color: #000;
     color: #fff;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 h2 {
@@ -107,7 +109,12 @@ input {
 }
 
 .add-team {
-    height: 285px;
+    height: 270px;
+    transition: .6s ease-in-out;
+}
+
+.add-team>h2, .rankings>h2{
+    height: 21px;
     transition: .6s ease-in-out;
 }
 
@@ -126,10 +133,6 @@ input {
     height: 120px;
     margin: 18px auto;
     transition: .6s ease-in-out;
-}
-
-.fade {
-    opacity: 0;
 }
 
 .size-change {
@@ -168,4 +171,31 @@ input {
 
 .players:hover {
     cursor: pointer;
+}
+
+.button-area {
+    text-align: center;
+    margin-bottom: 6px;
+}
+.button-area button {
+    margin-left: 12px;
+   background-color: #c8102e;
+    color: white;
+    border: none;
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: 21px;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 1px 1px 3px #00000075;
+}
+
+.button-area button:hover {
+    box-shadow: 2.1px 2.1px 3px #00000081;
+    background-color: #bd122f;
+}
+
+.button-area button:active {
+    transform: translateY(.6px);
+    background-color: #960e25;
 }
