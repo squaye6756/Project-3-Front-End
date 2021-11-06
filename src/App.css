@@ -151,3 +151,21 @@ input {
     width: 75%;
     margin: 12px auto;
 }
+
+.players {
+    margin-bottom: 5px;
+}
+
+.players:before {
+    content: '~';
+    margin-right: 5px;
+    background-image: url('images/neo_playerbullet.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    color: #1d428a;
+}
+
+.players:hover {
+    cursor: pointer;
+}
