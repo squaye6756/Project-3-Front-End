@@ -17,8 +17,8 @@ const App = () => {
 
     const loadTeams = () => {
         // console.log('axios get call');
-        // axios.get('https://streetball-back.herokuapp.com/teams')
-        axios.get('http://localhost:3000/teams')
+        axios.get('https://streetball-back.herokuapp.com/teams')
+        // axios.get('http://localhost:3000/teams')
         .then(
             (response) => {
                 // console.log('response', response.data);
@@ -51,8 +51,8 @@ const App = () => {
         event.preventDefault();
         // console.log('axios post call');
         axios.post(
-            'http://localhost:3000/teams',
-            // 'https://streetball-back.herokuapp.com/teams',
+            // 'http://localhost:3000/teams',
+            'https://streetball-back.herokuapp.com/teams',
             {
                 name: name,
                 logo: logo,
@@ -225,8 +225,8 @@ const App = () => {
             </div>
             <Rankings ateams={teams} showForm={showForm} setShowForm={setShowForm}/>
             <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo} teamId={teamId} setTeamId={setTeamId} location={location} setLocation={setLocation}/>
-           
-           
+
+
         </div>
     )
 }
