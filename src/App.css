@@ -117,3 +117,31 @@ input {
 .edit-team input[type="submit"] {
     border-radius: 4.2px;
 }
+
+.rankings {
+    width: 840px;
+    height: 120px;
+    margin: 18px auto; 
+    transition: .6s ease-in-out;
+}
+
+.rankings.width-change {
+    height: 0px;
+    opacity: 0;
+    margin: 0 auto;
+}
+
+.rankings h2 {
+    text-align: center;
+}
+
+.rankings li {
+    text-align:left;
+}
+
+.rankings-list {
+    columns: auto 3;
+    width: 75%;
+    margin: 12px auto;
+}
+
