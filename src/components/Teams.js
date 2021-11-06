@@ -147,7 +147,9 @@ const Teams = (props) => {
         // }
         // console.log('now putting');
         axios.put(
+
             `http://localhost:3000/teams/${props.teamId}`,
+
             // `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 name: props.name || currTeam.name,

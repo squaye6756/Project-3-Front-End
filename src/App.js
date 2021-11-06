@@ -2,6 +2,7 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Teams from './components/Teams.js';
+import Rankings from './components/Rankings.js';
 
 const App = () => {
     const [teams, setTeams] = useState([]);
@@ -11,6 +12,8 @@ const App = () => {
     const [teamSkills, setTeamSkills] = useState([]);
     const [teamId, setTeamId] = useState('');
     const [location, setLocation] = useState('');
+    //ERIC ADDS
+    const [showForm, setShowForm] = useState(true)
 
     const loadTeams = () => {
         // console.log('axios get call');
@@ -177,7 +180,8 @@ const App = () => {
     return (
         <div>
             <h1>STREETBALL</h1>
-            <div className='add-team'>
+            {/* add by E */}
+            <div className={showForm ? "add-team " : "add-team fade"}>
                 <h2>Add Team</h2>
                 <form onSubmit={addTeam}>
                     <div>
@@ -219,7 +223,10 @@ const App = () => {
                     <button onClick={rankTeams}>Rank Teams</button>
                 </div>
             </div>
+            <Rankings ateams={teams} showForm={showForm} setShowForm={setShowForm}/>
             <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo} teamId={teamId} setTeamId={setTeamId} location={location} setLocation={setLocation}/>
+           
+           
         </div>
     )
 }
