@@ -190,8 +190,8 @@ const App = () => {
             <h1>STREETBALL</h1>
             <div className='button-area'>
                 <button onClick={rankTeams}>Update Rankings</button>
-                <button onClick={handleShowBoard}>Display Top 15 Teams</button>
-                <button onClick={handleShowForm}>Add Your Team</button>
+                <button onClick={handleShowBoard}>{showBoard ? 'Hide' : 'Display' } Top 15 Teams</button>
+                <button onClick={handleShowForm}>{showForm ? 'Close form' : 'Add Your Team'}</button>
             </div>
             <div className={showForm ? 'add-team' : 'add-team size-change'}>
                 <h2 className={showForm ? '' : 'size-change'}>Add Team</h2>

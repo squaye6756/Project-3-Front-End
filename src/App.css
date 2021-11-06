@@ -190,12 +190,21 @@ input {
     box-shadow: 1px 1px 3px #00000075;
 }
 
+.button-area button:nth-child(2) {
+    width: 180px;
+}
+
+.button-area button:last-child {
+    width: 138px;
+}
+
 .button-area button:hover {
     box-shadow: 2.1px 2.1px 3px #00000081;
     background-color: #bd122f;
 }
 
 .button-area button:active {
-    transform: translateY(.6px);
+    transform: translateY(.9px);
+    box-shadow: 1.5px 1.2px 1.5px #00000081;
     background-color: #960e25;
 }
