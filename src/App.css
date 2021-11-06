@@ -123,6 +123,9 @@ input {
     color: #fff;
     border-radius: 4.2px;
 }
+.edit-team {
+    z-index: 1;
+}
 
 .edit-team input[type="submit"] {
     border-radius: 4.2px;
