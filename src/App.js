@@ -116,8 +116,8 @@ const App = () => {
             sortedRankedArr[i].rankObtained = i + 1;
             //put request
             axios.put(
-                // `http://localhost:3000/teams/${sortedRankedArr[i]._id}`,
-                `https://streetball-back.herokuapp.com/teams/${sortedRankedArr[i]._id}`,
+                `http://localhost:3000/teams/${sortedRankedArr[i]._id}`,
+                // `https://streetball-back.herokuapp.com/teams/${sortedRankedArr[i]._id}`,
                 {
                     rank: sortedRankedArr[i].rankObtained
                 }
