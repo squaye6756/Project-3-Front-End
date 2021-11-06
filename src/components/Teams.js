@@ -199,7 +199,7 @@ const Teams = (props) => {
                                         playerId = playerId.toString();
                                         return (
                                             <>
-                                                <li onClick={()=>toggleSkill(playerId)}>
+                                                <li className='players' onClick={()=>toggleSkill(playerId)}>
                                                     {teammate.name}
                                                     {<span id={playerId} className='hideToggle'> - Skills: {teammate.skills}
                                                     </span>}
