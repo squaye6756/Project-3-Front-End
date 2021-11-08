@@ -1,5 +1,5 @@
 import './App.css';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Teams from './components/Teams.js';
 
@@ -12,16 +12,20 @@ const App = () => {
     const [teamId, setTeamId] = useState('');
     const [location, setLocation] = useState('');
 
+    const [showForm, setShowForm] = useState(false)
+    const [showBoard, setShowBoard] = useState(false)
+
     const loadTeams = () => {
         // console.log('axios get call');
-        axios.get('https://streetball-back.herokuapp.com/teams')
-        // axios.get('http://localhost:3000/teams')
-        .then(
-            (response) => {
-                // console.log('response', response.data);
-                setTeams(response.data);
-            }
-        );
+        // axios.get('https://streetball-back.herokuapp.com/teams')
+        axios.get('http://localhost:3000/teams')
+            .then(
+                (response) => {
+                    // console.log('response', response.data);
+                    setTeams(response.data);
+                }
+            );
+
     }
 
     const clearStates = () => {
@@ -170,6 +174,14 @@ const App = () => {
         displayRankings(sortedTeams);
     }
 
+    const handleShowBoard = () => {
+        setShowBoard(!showBoard)
+    }
+    const handleShowForm = () => {
+        console.log('clicked');
+        setShowForm(!showForm);
+    }
+
     useEffect(() => {
         loadTeams();
     }, [])
@@ -177,49 +189,55 @@ const App = () => {
     return (
         <div>
             <h1>STREETBALL</h1>
-            <div className='add-team'>
-                <h2>Add Team</h2>
+            <div className='button-area'>
+                <button onClick={rankTeams}>Update Rankings</button>
+                <button onClick={handleShowBoard}>{showBoard ? 'Hide' : 'Display' } Top 15 Teams</button>
+                <button onClick={handleShowForm}>{showForm ? 'Close form' : 'Add Your Team'}</button>
+            </div>
+            <div className={showForm ? 'add-team' : 'add-team size-change'}>
+                <h2 className={showForm ? '' : 'size-change'}>Add Team</h2>
+
                 <form onSubmit={addTeam}>
                     <div>
                         <label htmlFor='name'>Name: </label>
-                        <input type='text' id='name' onChange={changeName}/>
+                        <input type='text' id='name' onChange={changeName} />
                     </div>
                     <div>
                         <label htmlFor='logo'>Logo: </label>
-                        <input type='text' id='logo' placeholder='image URL' onChange={changeLogo}/>
+                        <input type='text' id='logo' placeholder='image URL' onChange={changeLogo} />
                     </div>
                     <div>
                         <label htmlFor='location'>Location: </label>
-                        <input type='text' id='location' onChange={changeLocation}/>
+                        <input type='text' id='location' onChange={changeLocation} />
                     </div>
                     <div>
                         <h3>Starting 3:</h3>
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-one'>Player Name: </label>
-                        <input type='text' id='player-name-one' className='player-name-input' onChange={changePlayers}/>
+                        <input type='text' id='player-name-one' className='player-name-input' onChange={changePlayers} />
                         <label htmlFor='player-one-skills'>Skills: </label>
-                        <input type='text' id='player-one-skills' onChange={changeSkills}/>
+                        <input type='text' id='player-one-skills' onChange={changeSkills} />
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-two'>Player Name: </label>
-                        <input type='text' id='player-name-two' className='player-name-input' onChange={changePlayers}/>
+                        <input type='text' id='player-name-two' className='player-name-input' onChange={changePlayers} />
                         <label htmlFor='player-two-skills'>Skills: </label>
-                        <input type='text' id='player-two-skills' onChange={changeSkills}/>
+                        <input type='text' id='player-two-skills' onChange={changeSkills} />
                     </div>
                     <div className='player-input'>
                         <label htmlFor='player-name-three'>Player Name: </label>
-                        <input type='text' id='player-name-three' className='player-name-input' onChange={changePlayers}/>
+                        <input type='text' id='player-name-three' className='player-name-input' onChange={changePlayers} />
                         <label htmlFor='player-three-skills'>Skills: </label>
-                        <input type='text' id='player-three-skills' onChange={changeSkills}/>
+                        <input type='text' id='player-three-skills' onChange={changeSkills} />
                     </div>
-                    <input type='submit' value='Add Team'/>
+                    <input type='submit' value='Add Team' />
                 </form>
-                <div>
-                    <button onClick={rankTeams}>Rank Teams</button>
-                </div>
             </div>
-            <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo} teamId={teamId} setTeamId={setTeamId} location={location} setLocation={setLocation}/>
+
+            <Rankings ateams={teams} showBoard={showBoard} setShowBoard={setShowBoard} />
+            <Teams teams={teams} setTeams={setTeams} playerNames={playerNames} setPlayerNames={setPlayerNames} teamSkills={teamSkills} setTeamSkills={setTeamSkills} name={name} setName={setName} logo={logo} setLogo={setLogo} teamId={teamId} setTeamId={setTeamId} location={location} setLocation={setLocation} />
+
         </div>
     )
 }
