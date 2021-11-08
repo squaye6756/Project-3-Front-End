@@ -4,6 +4,7 @@ import axios from 'axios';
 import Teams from './components/Teams.js';
 import Rankings from './components/Rankings.js';
 
+
 const App = () => {
     const [teams, setTeams] = useState([]);
     const [name, setName] = useState('');
