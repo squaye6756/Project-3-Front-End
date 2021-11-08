@@ -10,6 +10,8 @@ h1 {
     font-size: 3.6rem;
     background-color: #000;
     color: #fff;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 h2 {
@@ -43,7 +45,7 @@ h3 {
     color: #fff;
     margin: 10px auto;
     width: 840px;
-    border-radius: 3.6px;
+    border-radius: 3px;
     box-shadow: 1.2px 1.2px 6.3px 1.3px #00000075;
 }
 
@@ -107,7 +109,12 @@ input {
 }
 
 .add-team {
-    height: 285px;
+    height: 270px;
+    transition: .6s ease-in-out;
+}
+
+.add-team>h2, .rankings>h2{
+    height: 21px;
     transition: .6s ease-in-out;
 }
 
@@ -115,6 +122,9 @@ input {
     background-color: #000;
     color: #fff;
     border-radius: 4.2px;
+}
+.edit-team {
+    z-index: 1;
 }
 
 .edit-team input[type="submit"] {
@@ -125,11 +135,7 @@ input {
     width: 840px;
     height: 120px;
     margin: 18px auto;
-    transition: .6s ease-in-out;
-}
-
-.fade {
-    opacity: 0;
+    transition: .45s ease-in-out;
 }
 
 .size-change {
@@ -168,4 +174,40 @@ input {
 
 .players:hover {
     cursor: pointer;
+}
+
+.button-area {
+    text-align: center;
+    margin-bottom: 6px;
+}
+.button-area button {
+    margin-left: 12px;
+   background-color: #c8102e;
+    color: white;
+    border: none;
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: 21px;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 1px 1px 3px #00000075;
+}
+
+.button-area button:nth-child(2) {
+    width: 180px;
+}
+
+.button-area button:last-child {
+    width: 138px;
+}
+
+.button-area button:hover {
+    box-shadow: 2.1px 2.1px 3px #00000081;
+    background-color: #bd122f;
+}
+
+.button-area button:active {
+    transform: translateY(.9px);
+    box-shadow: 1.5px 1.2px 1.5px #00000081;
+    background-color: #960e25;
 }
