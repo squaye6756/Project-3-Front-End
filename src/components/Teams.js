@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const Teams = (props) => {
 
+    //Makes an axios get request to load current data from the database
     const loadTeams = () => {
         // axios.get('http://localhost:3000/teams')
         axios.get(`https://streetball-back.herokuapp.com/teams`)
@@ -13,6 +14,7 @@ const Teams = (props) => {
         );
     }
 
+    //Takes id of span element of each li as a parameter and toggles its display
     const toggleSkill = (id) => {
         const skills = document.getElementById(id);
         skills.className = skills.className === 'playerSkills showToggle' ? 'playerSkills hideToggle' : 'playerSkills showToggle';
@@ -20,6 +22,7 @@ const Teams = (props) => {
         playerNameDiv.className = playerNameDiv.className === 'player-name player-center' ? 'player-name player-left' : 'player-name player-center';
     }
 
+    //Using each of the edit fields' classes, we set them all to an empty string
     const clearEditFields = () => {
         // console.log(document.getElementsByClassName('edit-header'));
         const editHeaderFields = document.getElementsByClassName('edit-header');
@@ -36,10 +39,13 @@ const Teams = (props) => {
         }
     }
 
+    /*Changes the state of the teamId, which determines which team will be
+    edited upon submission of an edit form*/
     const changeTeamToEdit = (team) => {
         props.setTeamId(team._id);
     }
 
+    //Uses the teamId state to find a team in the list of teams
     const getCurrTeamByStateId = () => {
         for (const team of props.teams) {
             // console.log(team._id);
@@ -50,6 +56,7 @@ const Teams = (props) => {
         }
     }
 
+    //Uses an id passed as a parameter to find a team in the list of teams
     const findCurrTeamById = (id) => {
         for (const team of props.teams) {
             // console.log(team._id);
@@ -60,6 +67,9 @@ const Teams = (props) => {
         }
     }
 
+    /*Uses a team passed as a parameter in order to set the state of player
+    names to the current values of those in the edit player fields of the team;
+    also calls changeTeamToEdit*/
     const changePlayersEdit = (team) => {
         const playerOneId = team.players[0]._id.toString();
         const playerTwoId = team.players[1]._id.toString();
@@ -72,6 +82,9 @@ const Teams = (props) => {
         changeTeamToEdit(team);
     }
 
+    /*Uses a team passed as a parameter in order to set the state of player
+    skills to the current values of those in the edit skills fields of the team;
+    also calls changeTeamToEdit*/
     const changeSkillsEdit = (team) => {
         const playerOneId = team.players[0]._id.toString();
         const playerTwoId = team.players[1]._id.toString();
@@ -83,6 +96,9 @@ const Teams = (props) => {
         changeTeamToEdit(team);
     }
 
+    /*changes the state of the name to the current value of that in the edit
+    name field; furthermore, using the findCurrTeamById function, it calls
+    changeTeamToEdit*/
     const changeNameEdit = (event) => {
         // console.log(event.target);
         // console.log(event.target.id);
@@ -91,18 +107,26 @@ const Teams = (props) => {
         props.setName(event.target.value);
     }
 
+    /*changes the state of the logo to the current value of that in the edit
+    name field; furthermore, using the findCurrTeamById function, it calls
+    changeTeamToEdit*/
     const changeLogoEdit = (event) => {
         const currTeam = findCurrTeamById(event.target.id.split('-')[2]);
         changeTeamToEdit(currTeam);
         props.setLogo(event.target.value);
     }
 
+    /*changes the state of the location to the current value of that in the edit
+    name field; furthermore, using the findCurrTeamById function, it calls
+    changeTeamToEdit*/
     const changeLocationEdit = (event) => {
         const currTeam = findCurrTeamById(event.target.id.split('-')[2]);
         changeTeamToEdit(currTeam);
         props.setLocation(event.target.value);
     }
 
+    /*Takes in a team as a parameter, then makes an axios put request using that
+    team’s id to increment the team’s amount of wins, then calls loadTeams*/
     const addWin = (team) => {
         axios.put(
             // `http://localhost:3000/teams/${team._id}`,
@@ -115,6 +139,8 @@ const Teams = (props) => {
         });
     }
 
+    /*Takes in a team as a parameter, then makes an axios put request using that
+    team’s id to increment the team’s amount of losses, then calls loadTeams*/
     const addLoss = (team) => {
         axios.put(
             // `http://localhost:3000/teams/${team._id}`,
@@ -127,6 +153,8 @@ const Teams = (props) => {
         });
     }
 
+    /*Takes in a team as a parameter then makes an axios delete request using
+    that team’s id to remove the team from the database, then calls loadTeams*/
     const removeTeam = (team) => {
         // axios.delete(`http://localhost:3000/teams/${team._id}`)
         axios.delete(`https://streetball-back.herokuapp.com/teams/${team._id}`)
@@ -135,19 +163,15 @@ const Teams = (props) => {
         });
     }
 
+    /*Makes an axios put request using on the current state of teamId to
+    determine which team will be edited; the states of the name, logo, location,
+    playerNames, and playerSkills then replace the original values as long as
+    they are not empty; the page is then reloaded using loadTeams, and the input
+    fields are cleared using clearEditFields*/
     const editTeam = (event) => {
         event.preventDefault();
         // console.log('edit call');
         const currTeam = getCurrTeamByStateId();
-        // let currTeam;
-        // for (const team of props.teams) {
-        //     // console.log(team._id);
-        //     if (team._id === props.teamId) {
-        //         // console.log('found matching team');
-        //         currTeam = team;
-        //     }
-        // }
-        // console.log('now putting');
         axios.put(
             // `http://localhost:3000/teams/${props.teamId}`,
             `https://streetball-back.herokuapp.com/teams/${props.teamId}`,
