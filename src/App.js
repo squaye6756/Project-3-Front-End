@@ -16,6 +16,7 @@ const App = () => {
     const [showForm, setShowForm] = useState(false)
     const [showBoard, setShowBoard] = useState(false)
 
+    //Makes an axios get request to load current data from the database
     const loadTeams = () => {
         // console.log('axios get call');
         axios.get('https://streetball-back.herokuapp.com/teams')
@@ -28,6 +29,7 @@ const App = () => {
             );
     }
 
+    //Clears the states for name, logo, playerNames, teamSkills, location
     const clearStates = () => {
         setName('');
         setLogo('');
@@ -36,6 +38,9 @@ const App = () => {
         setLocation([]);
     }
 
+
+    /*Empties the text of the name, logo, location, players, and skills inputs
+    in the add team form*/
     const clearInputs = () => {
         document.getElementById('player-name-one').value = '';
         document.getElementById('player-one-skills').value = '';
@@ -48,6 +53,10 @@ const App = () => {
         document.getElementById('location').value = '';
     }
 
+    /*Makes an axios post request adding a team to the database based on the
+    team, logo, location, players, and their skills, and defaults the added
+    team’s wins and losses to 0, and its rank to -1; calls loadTeams afterward
+    and the clearStates and clearInputs functions*/
     const addTeam = (event) => {
         event.preventDefault();
         // console.log('axios post call');
@@ -84,6 +93,8 @@ const App = () => {
         clearStates();
     }
 
+    /*Sets the state of playerNames using the values in each of the player input
+    fields in the add form*/
     const changePlayers = () => {
         const playerOneName = document.getElementById('player-name-one').value;
         const playerTwoName = document.getElementById('player-name-two').value;
@@ -92,6 +103,8 @@ const App = () => {
         setPlayerNames([playerOneName, playerTwoName, playerThreeName]);
     }
 
+    /*Sets the state of playerSkills using the values in each of the skill input
+    fields in the add form*/
     const changeSkills = () => {
         const playerOneSkills = document.getElementById('player-one-skills').value;
         const playerTwoSkills = document.getElementById('player-two-skills').value;
@@ -100,18 +113,25 @@ const App = () => {
         setTeamSkills([playerOneSkills, playerTwoSkills, playerThreeSkills]);
     }
 
+    //Sets the state of name with the value in the name input field in the add form
     const changeName = (event) => {
         setName(event.target.value);
     }
 
+    //Sets the state of logo with the value in the name input field in the add form
     const changeLogo = (event) => {
         setLogo(event.target.value);
     }
 
+    /*Sets the state of location with the value in the name input field in the
+    add form*/
     const changeLocation = (event) => {
         setLocation(event.target.value);
     }
 
+    /*Takes an array of teams sorted by their winPercentage, and gives them their
+    rank based on their array position using an axios put request, then calls
+    loadTeams*/
     const displayRankings = (sortedRankedArr) => {
         for (let i = 0; i < sortedRankedArr.length; i++) {
             sortedRankedArr[i].rankObtained = i + 1;
@@ -130,6 +150,8 @@ const App = () => {
         // console.log('at last', sortedRankedArr);
     }
 
+    /*Takes an array of teams as a parameter, sorts the teams by their
+    winPercentage, and returns the sorted array*/
     const sortByWinPercentage = (rankedArr) => {
         for (let i = 0; i < rankedArr.length - 1; i++) {
             for (let j = 0; j < rankedArr.length - 1; j++) {
@@ -145,6 +167,7 @@ const App = () => {
         // displayRankings(rankedArr);
     }
 
+    //Copies and returns an array holding all the teams in the database
     const copyTeams = () => {
         const copiedArr = [];
         for (const team of teams) {
@@ -153,6 +176,8 @@ const App = () => {
         return copiedArr;
     }
 
+    /*Calculates the win percentage of each team in the copy of teams and saves
+    it as a key-value pair*/
     const assignWinPercentages = () => {
         for (const team of teams) {
             const totalGames = team.wins + team.losses;
@@ -165,6 +190,7 @@ const App = () => {
         // console.log('after assigning win %s', teams);
     }
 
+    //calls helper methods to rank all the teams in the database
     const rankTeams = () => {
         assignWinPercentages();
         const teamsToSort = copyTeams();
@@ -174,14 +200,20 @@ const App = () => {
         displayRankings(sortedTeams);
     }
 
+    /*sets the state of showBoard, which determines whether the rankings are
+    displayed or not*/
     const handleShowBoard = () => {
         setShowBoard(!showBoard)
     }
+
+    /*sets the state of showForm, which determines whether to show the add form
+    or not*/
     const handleShowForm = () => {
-        console.log('clicked');
+        // console.log('clicked');
         setShowForm(!showForm);
     }
 
+    //loads the data from the database upon initially loading the page
     useEffect(() => {
         loadTeams();
     }, [])
