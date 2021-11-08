@@ -15,7 +15,9 @@ const Teams = (props) => {
 
     const toggleSkill = (id) => {
         const skills = document.getElementById(id);
-        skills.style.display = skills.style.display === 'inline' ? 'none' : 'inline';
+        skills.className = skills.className === 'playerSkills showToggle' ? 'playerSkills hideToggle' : 'playerSkills showToggle';
+        const playerNameDiv = document.getElementById('player-'+id);
+        playerNameDiv.className = playerNameDiv.className === 'player-name player-center' ? 'player-name player-left' : 'player-name player-center';
     }
 
     const clearEditFields = () => {
@@ -194,21 +196,22 @@ const Teams = (props) => {
                                 </div>
                                 <img src={team.logo} alt={team.name} className='team-logo'/>
                                 <h5><u>STARTING 3</u></h5>
-                                <ul>
+                                <div className = 'players-list'>
                                     {team.players.map((teammate) => {
                                         let playerId = teammate._id;
                                         playerId = playerId.toString();
                                         return (
                                             <>
-                                                <li className='players' onClick={()=>toggleSkill(playerId)}>
-                                                    {teammate.name}
-                                                    {<span id={playerId} className='hideToggle'> - Skills: {teammate.skills}
-                                                    </span>}
-                                                </li>
+                                            <div className='players' onClick={()=>toggleSkill(playerId)}>
+                                                <div className='player-name player-center' id={'player-'+ playerId}>
+                                                    {teammate.name} </div>
+                                                    <div id={playerId} className='player-skills hideToggle'> - Skills: {teammate.skills}
+                                                    </div>
+                                                    </div>
                                             </>
                                         )
                                     })}
-                                </ul>
+                                </div>
                             </div>
                             <div className='edit-team'>
                                 <h2>Edit Team</h2>
