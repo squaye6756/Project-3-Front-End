@@ -9,7 +9,6 @@ h1, .add-team, .edit-team {
 }
 
 h1 {
-    /* font-family: 'Yanone Kaffeesatz', sans-serif; */
     font-family: 'Carter One', cursive;
     font-size: 3.6rem;
     background-color: #000;
@@ -44,7 +43,6 @@ h3 {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    /* background-color: #dbe47c; */
     background-color: #1d428a;
     color: #fff;
     margin: 10px auto;
@@ -78,7 +76,6 @@ h3 {
 .team-header h3:first-child {
     text-shadow: 1px 1.2px 2px #000;
     font-size: 2.4rem;
-    /* color: #c8102e;     */
 }
 
 .wins {
@@ -95,17 +92,13 @@ h3 {
 }
 
 h5 {
-    margin-bottom: 0;
+    margin: 6px;
 }
 
 ul {
     padding: 0;
     text-align: center;
     list-style-type: none;
-}
-
-.hideToggle {
-    display: none;
 }
 
 input {
@@ -117,7 +110,7 @@ input {
     transition: .6s ease-in-out;
 }
 
-.add-team>h2, .rankings>h2{
+.add-team>h2, .rankings>h2 {
     height: 21px;
     transition: .6s ease-in-out;
 }
@@ -127,6 +120,7 @@ input {
     color: #fff;
     border-radius: 4.2px;
 }
+
 .edit-team {
     z-index: 1;
 }
@@ -162,11 +156,63 @@ input {
     margin: 12px auto;
 }
 
-.players {
-    margin-bottom: 5px;
+.players-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
 }
 
-.players:before {
+.player-name {
+    text-align: center;
+}
+
+.player-left {
+    text-align: left;
+    animation: go-left .6s;
+    animation-timing-function: ease;
+}
+
+@keyframes go-left {
+    from {margin-left: 51px;}
+    to {margin-left: 0px;}
+}
+
+.player-center {
+    text-align: center;
+    align-self: center;
+
+}
+
+.player-skills {
+    border: 1px solid green;
+}
+
+.hideToggle {
+    opacity: 0;
+    margin-left: -39px;
+    display: none;
+}
+
+.showToggle {
+    animation: fade-in 1.8s;
+}
+
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+
+.players {
+    align-self: center;
+    display: flex;
+    margin-bottom: 6px;
+    flex-direction: row;
+    align-content: center;
+}
+
+.player-name:before {
     content: '~';
     margin-right: 5px;
     background-image: url('images/neo_playerbullet.png');
@@ -184,9 +230,10 @@ input {
     text-align: center;
     margin-bottom: 6px;
 }
+
 .button-area button {
     margin-left: 12px;
-   background-color: #c8102e;
+    background-color: #c8102e;
     color: white;
     border: none;
     padding-left: 12px;
