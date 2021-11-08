@@ -4,8 +4,8 @@ import axios from 'axios';
 const Teams = (props) => {
 
     const loadTeams = () => {
-        axios.get('http://localhost:3000/teams')
-        // axios.get(`https://streetball-back.herokuapp.com/teams`)
+        // axios.get('http://localhost:3000/teams')
+        axios.get(`https://streetball-back.herokuapp.com/teams`)
         .then(
             (response) => {
                 props.setTeams(response.data);
@@ -103,8 +103,8 @@ const Teams = (props) => {
 
     const addWin = (team) => {
         axios.put(
-            `http://localhost:3000/teams/${team._id}`,
-            // `https://streetball-back.herokuapp.com/teams/${team._id}`,
+            // `http://localhost:3000/teams/${team._id}`,
+            `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 wins: team.wins + 1
             }
@@ -115,8 +115,8 @@ const Teams = (props) => {
 
     const addLoss = (team) => {
         axios.put(
-            `http://localhost:3000/teams/${team._id}`,
-            // `https://streetball-back.herokuapp.com/teams/${team._id}`,
+            // `http://localhost:3000/teams/${team._id}`,
+            `https://streetball-back.herokuapp.com/teams/${team._id}`,
             {
                 losses: team.losses + 1
             }
@@ -126,8 +126,8 @@ const Teams = (props) => {
     }
 
     const removeTeam = (team) => {
-        axios.delete(`http://localhost:3000/teams/${team._id}`)
-        // axios.delete(`https://streetball-back.herokuapp.com/teams/${team._id}`)
+        // axios.delete(`http://localhost:3000/teams/${team._id}`)
+        axios.delete(`https://streetball-back.herokuapp.com/teams/${team._id}`)
         .then(() => {
             loadTeams();
         });
@@ -147,10 +147,8 @@ const Teams = (props) => {
         // }
         // console.log('now putting');
         axios.put(
-
-            `http://localhost:3000/teams/${props.teamId}`,
-
-            // `https://streetball-back.herokuapp.com/teams/${team._id}`,
+            // `http://localhost:3000/teams/${props.teamId}`,
+            `https://streetball-back.herokuapp.com/teams/${props.teamId}`,
             {
                 name: props.name || currTeam.name,
                 logo: props.logo || currTeam.logo,
